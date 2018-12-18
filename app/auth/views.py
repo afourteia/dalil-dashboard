@@ -15,7 +15,9 @@ def login():
     if form.validate_on_submit():
         # Login and validate the user.
         # user should be an instance of your `User` class
+        # Query the database and filter by the provided email
         user = User.query.filter_by(email=form.email.data).first()
+        # Check if the provided email exists in the database and see verify the provided password is correct via the hash
         if user is not None and user.verify_password(form.password.data):
             login_user(user, form.remember_me.data)
             flask.flash('Logged in successfully.')
@@ -30,7 +32,7 @@ def login():
         #     return flask.abort(400)
 
         flash('Invalid username or password.')
-    return flask.render_template('auth/login.html', form=form)
+    return render_template('auth/login.html', form=form)
 
 
 @auth.route('/logout')
