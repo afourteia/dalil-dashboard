@@ -1,6 +1,8 @@
+import os
+from application import create_app
 
-from flask import Flask
+app = create_app(os.getenv('FLASK_CONFIG') or 'default')
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     app.run(debug=True)
