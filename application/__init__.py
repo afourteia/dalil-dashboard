@@ -1,23 +1,31 @@
 from flask import Flask
-from application.config import Config
+from config import config
+from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager
 
-# from flask_sqlalchemy import SQLAlchemy
+
+login_manager = LoginManager()
+db = SQLAlchemy()
+login_manager.login_view = "auth.login"
 
 
-def create_app(config_class=Config):
+def create_app(config_name):
     app = Flask(__name__)
 
     # import config parameters to flask app
-    app.config.from_object(Config)
+    app.config.from_object(config[config_name])
+    config[config_name].init_app(app)
 
     # initilize extensions
+    db.init_app(app)
+    login_manager.init_app(app)
 
     # import blueprints and register
-    from application.auth.routes import auth as auth_bleprint
-    app.register_blueprint(auth_bleprint)
-    from application.errors.handlers import errors as errors_bleprint
-    app.register_blueprint(errors_bleprint)
-    from application.main.routes import main as main_bleprint
-    app.register_blueprint(main_bleprint)
+    from application.auth.routes import auth
+    app.register_blueprint(auth)
+    from application.errors.handlers import errors
+    app.register_blueprint(errors)
+    from application.main.routes import main
+    app.register_blueprint(main)
 
     return app
