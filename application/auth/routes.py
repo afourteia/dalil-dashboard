@@ -19,6 +19,7 @@ def login():
         # Query the database and filter by the provided email
         user = User.query.filter_by(username=form.username.data).first()
         if user is not None and user.verify_password(form.password.data):
+            login_user(user, form.remember_me.data)
             flash('Log in successful!', 'success')
             next = request.args.get('next')
             if next is None or not next.startswith('/'):

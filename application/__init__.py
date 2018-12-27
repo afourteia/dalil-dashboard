@@ -23,6 +23,8 @@ def create_app(config_name):
     # import blueprints and register
     from application.auth.routes import auth
     app.register_blueprint(auth)
+    from application.dashboard.routes import dashboard
+    app.register_blueprint(dashboard)
     from application.errors.handlers import errors
     app.register_blueprint(errors)
     from application.main.routes import main
