@@ -23,6 +23,6 @@ def register():
     flash('هذه الخـدمــة غيــر مفعلة حاليا', 'warning')
     form = RegistrationForm()
     if form.validate_on_submit():
-        # flash(f'Account created for {form.username.data}!', 'success')
+        flash(f'Account created for {form.username.data}!', 'success')
         return redirect(url_for('errors.construction'))
     return render_template('register.html', title='Register', form=form)
