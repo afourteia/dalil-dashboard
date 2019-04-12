@@ -26,6 +26,33 @@ class User(db.Model, UserMixin):
         return f"User('{self.username}', '{self.email}')"
 
 
+# class HealthFacility(db.Model):
+#     __tablename__ = 'health_facilites'
+#     id = db.Column(db.Integer, primary_key=True)
+#     name = db.Column(db.String(64), unique=True, nullable=False)
+#     facility_type = db.Column(db.String(20), nullable=False)
+#     location = db.Column(db.String(120))
+#     email = db.Column(db.String(120))
+
+
+# class membership(db.Model):
+#     __tablename__ = 'members'
+#     id = db.Column(db.Integer, primary_key=True)
+#     member_name = db.Column(db.String(120), nullable=False)
+#     benefciary_name = db.Column(db.String(20), nullable=False)
+#     location = db.Column(db.String(120))
+#     email = db.Column(db.String(120))
+
+
+# class expense(db.Model):
+#     __tablename__ = 'health_facilites'
+#     internal_id = db.Column(db.Integer, primary_key=True)
+#     member = db.Column(db.String(64), unique=True, nullable=False)
+#     facility_type = db.Column(db.String(20), nullable=False)
+#     location = db.Column(db.String(120))
+#     email = db.Column(db.String(120))
+
+
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
